@@ -1,78 +1,66 @@
-
-const checklistData = {
-  "Lunes": ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  "Martes": ["Limpieza", "Glicólico", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  "Miércoles": ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  "Jueves": ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  "Viernes": ["Limpieza", "Glicólico", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  "Sábado": ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  "Domingo": ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"]
+const rutina = {
+  Lunes: ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
+  Martes: ["Limpieza", "Glicólico", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
+  Miércoles: ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
+  Jueves: ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
+  Viernes: ["Limpieza", "Glicólico", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
+  Sábado: ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
+  Domingo: ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"]
 };
 
 const explicaciones = {
-  "Limpieza": "Cetaphil Limpiador: aplicá sobre piel húmeda, masajeá 30 segundos y enjuagá.",
-  "Hyalu B5": "La Roche-Posay Hyalu B5: aplicá 2-3 gotas en todo el rostro antes del hidratante.",
-  "Contorno de ojos": "The Ordinary Caffeine: 1 gota por ojo con golpecitos suaves.",
-  "Hidratante": "CeraVe Loción Hidratante: aplicá una capa en rostro y cuello.",
-  "Protector solar": "Avène Mat Perfect FPS 50+: 2 dedos de producto. Reaplicá si salís.",
-  "Glicólico": "The Ordinary Glycolic 7%: aplicá con algodón solo de noche, 2 veces por semana."
+  "Limpieza": "CeraVe o Cetaphil: aplicar sobre piel húmeda, masajear y enjuagar.",
+  "Glicólico": "The Ordinary Glycolic 7%: usar solo de noche 2x/semana con algodón.",
+  "Hyalu B5": "La Roche-Posay Hyalu B5: aplicar 2-3 gotas y presionar suavemente.",
+  "Contorno de ojos": "The Ordinary Cafeína: 1 gota por ojo, con golpecitos suaves.",
+  "Hidratante": "CeraVe o Avène: aplicar en rostro y cuello.",
+  "Protector solar": "Avène Mat Perfect FPS 50+: 2 dedos de producto cada mañana."
 };
 
-const dayNames = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-const today = new Date();
-const dayName = dayNames[today.getDay()];
-document.getElementById("day-title").textContent = "Ritual de " + dayName;
-
 const checklist = document.getElementById("checklist");
-let allItems = checklistData[dayName] || [];
+const day = new Date().toLocaleDateString("es-AR", { weekday: "long" });
+const capitalized = day.charAt(0).toUpperCase() + day.slice(1);
+const pasos = rutina[capitalized];
+document.getElementById("title").textContent = "Ritual de " + capitalized;
 
-function createChecklist(items) {
+function buildChecklist(items) {
   checklist.innerHTML = "";
   items.forEach(item => {
     const li = document.createElement("li");
     const label = document.createElement("label");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.id = item;
-    checkbox.checked = localStorage.getItem(item + dayName) === "true";
-    checkbox.addEventListener("change", () => {
-      localStorage.setItem(item + dayName, checkbox.checked);
-      checkCompleted();
-    });
-
+    checkbox.checked = localStorage.getItem(item) === "true";
+    checkbox.onchange = () => {
+      localStorage.setItem(item, checkbox.checked);
+      checkComplete();
+    };
     label.textContent = item;
-    const info = document.createElement("button");
-    info.textContent = "?";
-    info.onclick = () => alert(explicaciones[item] || "Sin info");
-
+    const help = document.createElement("button");
+    help.textContent = "?";
+    help.onclick = () => alert(explicaciones[item] || "Sin explicación.");
     li.appendChild(checkbox);
     li.appendChild(label);
-    li.appendChild(info);
+    li.appendChild(help);
     checklist.appendChild(li);
   });
 }
 
-function checkCompleted() {
-  const allChecked = allItems.every(item => localStorage.getItem(item + dayName) === "true");
-  document.getElementById("message").textContent = allChecked ? "¡Ritual completado!" : "";
-}
-
 function resetChecklist() {
-  allItems.forEach(item => localStorage.removeItem(item + dayName));
-  createChecklist(allItems);
+  pasos.forEach(item => localStorage.removeItem(item));
+  buildChecklist(pasos);
   document.getElementById("message").textContent = "";
 }
 
 function showAll() {
-  allItems = Array.from(new Set(Object.values(checklistData).flat()));
-  document.getElementById("day-title").textContent = "Ritual completo";
-  createChecklist(allItems);
-  document.getElementById("message").textContent = "";
+  const allSteps = [...new Set(Object.values(rutina).flat())];
+  buildChecklist(allSteps);
 }
 
-setTimeout(() => {
-  document.getElementById("splash").style.display = "none";
-  document.getElementById("app").style.display = "block";
-  createChecklist(allItems);
-  checkCompleted();
-}, 3000);
+function checkComplete() {
+  const allChecked = pasos.every(p => localStorage.getItem(p) === "true");
+  document.getElementById("message").textContent = allChecked ? "¡Ritual completado! Tu piel te lo agradece." : "";
+}
+
+buildChecklist(pasos);
+checkComplete();

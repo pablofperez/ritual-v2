@@ -1,13 +1,12 @@
-
 {
   "name": "Ritual",
   "short_name": "Ritual",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#111111",
-  "theme_color": "#111111",
+  "background_color": "#0e0e0e",
+  "theme_color": "#0e0e0e",
   "icons": [{
-    "src": "icon-192.png",
+    "src": "icon.png",
     "sizes": "192x192",
     "type": "image/png"
   }]
