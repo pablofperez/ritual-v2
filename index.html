@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Ritual</title>
+</head>
+<body>
+  <div id="splash">
+    <h1>Ritual</h1>
+    <p>Tu rutina facial personalizada</p>
+  </div>
+  <div id="app" style="display:none;">
+    <h2 id="day-title">Ritual</h2>
+    <ul id="checklist"></ul>
+    <div id="message"></div>
+    <div class="buttons">
+      <button onclick="resetChecklist()">Reiniciar</button>
+      <button onclick="showAll()">Ver rutina completa</button>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
