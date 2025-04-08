@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ritual</title>
   <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css" />
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="icon.png" />
+  <title>Ritual</title>
 </head>
 <body>
-  <main>
-    <h1 id="title">Ritual de Hoy</h1>
-    <ul id="checklist"></ul>
-    <div class="controls">
-      <button onclick="resetChecklist()">Reiniciar</button>
-      <button onclick="showAll()">Ver rutina completa</button>
-    </div>
-    <div id="message"></div>
-  </main>
+  <h1>Ritual de Martes</h1>
+  <ul>
+    <li><input type="checkbox" /> Limpieza <button title="Usar Cetaphil/CeraVe con agua tibia">?</button></li>
+    <li><input type="checkbox" /> Glicólico <button title="The Ordinary Ácido Glicólico 7% (solo 2x semana)">?</button></li>
+    <li><input type="checkbox" /> Hyalu B5 <button title="La Roche-Posay Hyalu B5. 2-3 gotas con cara húmeda">?</button></li>
+    <li><input type="checkbox" /> Contorno de ojos <button title="The Ordinary Cafeína 5% o Revox. 1 gota, suave">?</button></li>
+    <li><input type="checkbox" /> Hidratante <button title="CeraVe Loción Hidratante o Cicalfate Avène">?</button></li>
+    <li><input type="checkbox" /> Protector solar <button title="Avène Mat Perfect FPS 50 con color. Último paso">?</button></li>
+  </ul>
 </body>
 </html>
