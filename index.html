@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <title>Ritual - Cuidado de la Piel</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon.png">
+  <link rel="apple-touch-icon" href="./icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <div class="menu-btn"><i class="fas fa-bars"></i></div>
+      <div class="logo">
+        <div class="theme-icon"><i class="fas fa-leaf" id="theme-icon"></i></div>
+        <h1>Ritual</h1>
+      </div>
+      <div class="settings-btn"><i class="fas fa-ellipsis-vertical"></i></div>
+    </header>
+
+    <div class="theme-selector">
+      <div class="theme-option" data-theme="hoja">
+        <i class="fas fa-leaf"></i><span>hoja</span>
+      </div>
+      <div class="theme-option" data-theme="luna">
+        <i class="fas fa-moon"></i><span>luna</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <h2 class="subtitle">Ritual de <span id="theme-label">Mañana</span></h2>
+      <p class="daily-quote">Cargando tu frase diaria...</p>
+      <div class="ritual-steps"></div>
+
+      <div class="summary">
+        <div class="summary-content">
+          <div class="ritual-completado">
+            <h3>Ritual completado</h3>
+            <p>Tu piel te lo agradece.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="weekly-summary" id="weekly-summary">
+        <h3>Resumen Semanal</h3>
+        <div class="weekly-calendar">
+          <div class="day" data-day="1">L</div>
+          <div class="day" data-day="2">M</div>
+          <div class="day" data-day="3">X</div>
+          <div class="day" data-day="4">J</div>
+          <div class="day" data-day="5">V</div>
+          <div class="day" data-day="6">S</div>
+          <div class="day" data-day="0">D</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="reset-btn" class="btn">Reiniciar</button>
+      <button id="view-all-btn" class="btn">Ver rutina completa</button>
+    </div>
+  </div>
+
+  <div class="modal" id="explanation-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3 id="modal-title">Título del producto</h3>
+      <p id="modal-explanation">Explicación de uso</p>
+    </div>
+  </div>
+
+  <div class="modal" id="all-routines-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3>Rutina completa de la semana</h3>
+      <div class="all-routines-content"></div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
