@@ -1,5 +1,6 @@
 
 :root {
+    /* Tema hoja - colores por defecto */
     --bg-color: #111111;
     --card-bg: #1a1a1a;
     --text-color: #ffffff;
@@ -10,17 +11,414 @@
     --icon-color: #4CAF50;
     --secondary-text: #aaaaaa;
 }
+
+/* Tema luna */
+[data-theme="luna"] {
+    --accent-color: #5c6bc0;
+    --accent-soft: rgba(92, 107, 192, 0.2);
+    --btn-color: #3949ab;
+    --icon-color: #5c6bc0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
 }
+
 .app-container {
     max-width: 500px;
     margin: 0 auto;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
-... (contenido completo omitido por longitud)
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.theme-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--accent-soft);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.theme-icon i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.logo h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.menu-btn, .settings-btn {
+    font-size: 1.2rem;
+    color: var(--secondary-text);
+    cursor: pointer;
+}
+
+/* Theme Selector */
+.theme-selector {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: var(--card-bg);
+    width: 70%;
+    margin: 1rem auto;
+}
+
+.theme-option {
+    flex: 1;
+    text-align: center;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-option.active {
+    background-color: var(--accent-soft);
+    color: var(--accent-color);
+}
+
+.theme-option i {
+    margin-right: 0.5rem;
+}
+
+/* Content */
+.content {
+    flex: 1;
+    padding: 1.5rem 1rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--secondary-text);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.daily-quote {
+    text-align: center;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+/* Ritual Steps */
+.ritual-steps {
+    margin-bottom: 2rem;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    position: relative;
+}
+
+.step-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--accent-soft);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.step-icon i {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+}
+
+.step-text {
+    flex: 1;
+}
+
+.step-text h3 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.info-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--accent-soft);
+    color: var(--accent-color);
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+.step-checkbox {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-left: 1rem;
+}
+
+.step-checkbox input[type="checkbox"] {
+    opacity: 0;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.step-checkbox input[type="checkbox"]:checked ~ .checkmark {
+    background-color: var(--accent-color);
+}
+
+.checkmark:after {
+    content: "✓";
+    position: absolute;
+    display: none;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.step-checkbox input[type="checkbox"]:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Summary */
+.summary {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    display: none; /* Oculto por defecto, se muestra cuando se completa el ritual */
+}
+
+.ritual-completado h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.ritual-completado p {
+    color: var(--secondary-text);
+}
+
+/* Weekly Summary */
+.weekly-summary {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    display: none; /* Sólo visible los domingos */
+}
+
+.weekly-summary h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.weekly-calendar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.day {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    background-color: var(--bg-color);
+}
+
+.day.completed {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.day.missed {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn {
+    flex: 1;
+    background-color: var(--btn-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0.8rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--accent-color);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--secondary-text);
+}
+
+#modal-title {
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+#modal-explanation {
+    line-height: 1.8;
+}
+
+/* All routines modal */
+.all-routines-content {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.day-routine {
+    margin-bottom: 1.5rem;
+}
+
+.day-routine h4 {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--accent-color);
+}
+
+.day-routine ul {
+    list-style: none;
+}
+
+.day-routine li {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.day-routine li::before {
+    content: "•";
+    color: var(--accent-color);
+    margin-right: 0.5rem;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Responsividad para dispositivos muy pequeños */
+@media (max-width: 320px) {
+    .logo h1 {
+        font-size: 1.7rem;
+    }
+
+    .step-item {
+        padding: 0.8rem;
+    }
+
+    .step-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .step-text h3 {
+        font-size: 0.9rem;
+    }
+}
