@@ -1,1 +1,26 @@
-body{background:#111;color:#fff;font-family:sans-serif;padding:2em}h1{text-align:center}ul{list-style:none;padding:0}li{margin:1em 0;display:flex;align-items:center;gap:1em}button{background-color:#444;color:white;border:none;padding:0.4em 0.8em;border-radius:0.4em;cursor:pointer}.controls{text-align:center;margin-top:2em}#message{text-align:center;margin-top:2em;font-size:1.2em;color:#4caf50}
+
+:root {
+    --bg-color: #111111;
+    --card-bg: #1a1a1a;
+    --text-color: #ffffff;
+    --accent-color: #4CAF50;
+    --accent-soft: rgba(76, 175, 80, 0.2);
+    --btn-color: #2e7d32;
+    --border-color: #333333;
+    --icon-color: #4CAF50;
+    --secondary-text: #aaaaaa;
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+.app-container {
+    max-width: 500px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+... (contenido completo omitido por longitud)

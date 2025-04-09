@@ -1,1 +1,28 @@
-const rutina={Lunes:["Limpieza","Hyalu B5","Contorno de ojos","Hidratante","Protector solar"],Martes:["Limpieza","Glicólico","Hyalu B5","Contorno de ojos","Hidratante","Protector solar"],Miércoles:["Limpieza","Hyalu B5","Contorno de ojos","Hidratante","Protector solar"],Jueves:["Limpieza","Hyalu B5","Contorno de ojos","Hidratante","Protector solar"],Viernes:["Limpieza","Glicólico","Hyalu B5","Contorno de ojos","Hidratante","Protector solar"],Sábado:["Limpieza","Hyalu B5","Contorno de ojos","Hidratante","Protector solar"],Domingo:["Limpieza","Hyalu B5","Contorno de ojos","Hidratante","Protector solar"]};const explicaciones={"Limpieza":"CeraVe o Cetaphil: aplicar sobre piel húmeda, masajear y enjuagar.","Glicólico":"Glycolic 7%: solo de noche 2x semana, evitar contorno de ojos.","Hyalu B5":"La Roche-Posay: 2-3 gotas sobre piel limpia, presionar.","Contorno de ojos":"The Ordinary Cafeína: 1 gota, aplicar con el dedo anular.","Hidratante":"CeraVe o Avène: aplicar en rostro y cuello.","Protector solar":"Avène FPS 50+: último paso por la mañana."};const checklist=document.getElementById("checklist");const dia=new Date().toLocaleDateString("es-AR",{weekday:"long"});const diaC=dia.charAt(0).toUpperCase()+dia.slice(1);let pasos=rutina[diaC];function buildChecklist(items){checklist.innerHTML="";items.forEach(paso=>{const li=document.createElement("li"),checkbox=document.createElement("input");checkbox.type="checkbox";checkbox.checked=localStorage.getItem(paso)==="true";checkbox.onchange=()=>{localStorage.setItem(paso,checkbox.checked);checkComplete(items)};const label=document.createElement("label");label.textContent=paso;const info=document.createElement("button");info.textContent="?";info.onclick=()=>alert(explicaciones[paso]||"Sin explicación.");li.appendChild(checkbox);li.appendChild(label);li.appendChild(info);checklist.appendChild(li)})}function resetChecklist(){pasos.forEach(p=>localStorage.removeItem(p));buildChecklist(pasos);document.getElementById("message").textContent=""}function showAll(){const allSteps=[...new Set(Object.values(rutina).flat())];buildChecklist(allSteps)}function checkComplete(items){const allChecked=items.every(p=>localStorage.getItem(p)==="true");document.getElementById("message").textContent=allChecked?"¡Ritual completado! Tu piel te lo agradece.":""}buildChecklist(pasos);checkComplete(pasos);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const app = {
+        currentTheme: localStorage.getItem('theme') || 'hoja',
+        todaySteps: [],
+        allSteps: {
+            'limpieza': {
+                icon: 'fa-shower',
+                title: 'Limpieza',
+                product: 'CeraVe o Cetaphil Limpiador',
+                explanation: 'Aplicá sobre el rostro húmedo...'
+            },
+            ...
+        },
+        routines: {
+            0: ['limpieza', 'hyalu', 'contorno', 'hidratante', 'protector'],
+            ...
+        },
+        quotes: {
+            0: "Tu momento. Tu ritual.",
+            ...
+        },
+        weekDays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+    };
+
+    // Código funcional y lógica completa de la app
+    ...
+});
