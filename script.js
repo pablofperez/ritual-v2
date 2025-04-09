@@ -1,139 +1,185 @@
-// script.js
 
-const rutinaPorDia = {
-  lunes: ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  martes: ["Limpieza", "Glicólico", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  miércoles: ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  jueves: ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  viernes: ["Limpieza", "Glicólico", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  sábado: ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"],
-  domingo: ["Limpieza", "Hyalu B5", "Contorno de ojos", "Hidratante", "Protector solar"]
-};
+document.addEventListener('DOMContentLoaded', () => {
+    const app = {
+        currentTheme: localStorage.getItem('theme') || 'hoja',
+        allSteps: {
+            'limpieza': {
+                icon: 'fa-shower',
+                title: 'Limpieza',
+                product: 'CeraVe o Cetaphil Limpiador',
+                explanation: 'Aplicá sobre el rostro húmedo, masajeá suavemente y enjuagá con agua tibia.'
+            },
+            'glicolico': {
+                icon: 'fa-flask',
+                title: 'Glicólico',
+                product: 'The Ordinary Glycolic Acid 7%',
+                explanation: 'Aplicá con un pad de algodón por la noche, 2 veces por semana. No enjuagar. No mezclar con otros ácidos.'
+            },
+            'hyalu': {
+                icon: 'fa-droplet',
+                title: 'Hyalu B5',
+                product: 'La Roche-Posay Hyalu B5 Serum',
+                explanation: 'Aplicá 2-3 gotas sobre la piel limpia y húmeda, presionando con las palmas.'
+            },
+            'contorno': {
+                icon: 'fa-eye',
+                title: 'Contorno de ojos',
+                product: 'The Ordinary Caffeine Solution 5% + EGCG',
+                explanation: 'Aplicá una gota en la yema del dedo anular y colocá con golpecitos suaves en el contorno.'
+            },
+            'hidratante': {
+                icon: 'fa-bottle-water',
+                title: 'Hidratante',
+                product: 'CeraVe Loción Hidratante o Avène Cicalfate',
+                explanation: 'Aplicá una capa ligera en rostro y cuello.'
+            },
+            'protector': {
+                icon: 'fa-sun',
+                title: 'Protector solar',
+                product: 'Avène Mat Perfect FPS 50+ con color',
+                explanation: 'Aplicá 2 dedos de producto cada mañana como último paso. Reaplicá si estás al aire libre.'
+            }
+        }
+    };
 
-const explicaciones = {
-  "Limpieza": {
-    producto: "CeraVe o Cetaphil Limpiador",
-    detalle: "Aplicá sobre el rostro húmedo, masajeá suavemente y enjuagá con agua tibia."
-  },
-  "Glicólico": {
-    producto: "The Ordinary Glycolic Acid 7%",
-    detalle: "Aplicá con un pad de algodón por la noche, 2 veces por semana. No enjuagar. No mezclar con otros ácidos."
-  },
-  "Hyalu B5": {
-    producto: "La Roche-Posay Hyalu B5 Serum",
-    detalle: "Aplicá 2-3 gotas sobre la piel limpia y húmeda, presionando con las palmas."
-  },
-  "Contorno de ojos": {
-    producto: "The Ordinary Caffeine Solution 5% + EGCG",
-    detalle: "Aplicá una gota en la yema del dedo anular y colocá con golpecitos suaves en el contorno."
-  },
-  "Hidratante": {
-    producto: "CeraVe Loción Hidratante o Avène Cicalfate",
-    detalle: "Aplicá una capa ligera en rostro y cuello."
-  },
-  "Protector solar": {
-    producto: "Avène Mat Perfect FPS 50+ con color",
-    detalle: "Aplicá 2 dedos de producto cada mañana como último paso. Reaplicá si estás al aire libre."
-  }
-};
+    const elements = {
+        themeIcon: document.getElementById('theme-icon'),
+        themeOptions: document.querySelectorAll('.theme-option'),
+        ritualSteps: document.querySelector('.ritual-steps'),
+        resetBtn: document.getElementById('reset-btn'),
+        viewAllBtn: document.getElementById('view-all-btn'),
+        explanationModal: document.getElementById('explanation-modal'),
+        modalTitle: document.getElementById('modal-title'),
+        modalExplanation: document.getElementById('modal-explanation'),
+        closeModalBtns: document.querySelectorAll('.close-modal'),
+        allRoutinesModal: document.getElementById('all-routines-modal'),
+        allRoutinesContent: document.querySelector('.all-routines-content')
+    };
 
-const frases = {
-  lunes: "Empieza la semana brillando desde adentro.",
-  martes: "Tu constancia es tu mejor aliada.",
-  miércoles: "Cada ritual te acerca a tu mejor versión.",
-  jueves: "Tu piel habla de cómo te cuidás.",
-  viernes: "Terminá la semana cuidándote con intención.",
-  sábado: "El ritual también es descanso.",
-  domingo: "Tu momento. Tu ritual."
-};
+    function getRoutine(theme) {
+        const day = new Date().getDay(); // 0=Domingo, 1=Lunes, ..., 5=Viernes, 6=Sábado
+        const isGlycolicDay = (day === 2 || day === 5); // Martes y Viernes
 
-let modo = 'hoja';
-const dias = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
-const diaActual = dias[new Date().getDay()];
-const checklistEl = document.getElementById('checklist');
-const motivacionEl = document.getElementById('motivacion');
-const modal = document.getElementById('modal');
-const modalContent = document.getElementById('modalContent');
-const mensajeCompletado = document.getElementById('mensajeCompletado');
-const grafico = document.getElementById('grafico');
+        if (theme === 'hoja') {
+            return isGlycolicDay
+                ? ['limpieza', 'glicolico', 'hyalu', 'contorno', 'hidratante', 'protector']
+                : ['limpieza', 'hyalu', 'contorno', 'hidratante', 'protector'];
+        } else {
+            return isGlycolicDay
+                ? ['limpieza', 'glicolico', 'hidratante']
+                : ['limpieza', 'hidratante'];
+        }
+    }
 
-function guardarEstado(nombre, valor) {
-  localStorage.setItem(`${modo}_${diaActual}_${nombre}`, valor);
-}
+    function applyTheme(theme) {
+        document.documentElement.dataset.theme = theme;
+        app.currentTheme = theme;
+        localStorage.setItem('theme', theme);
+        elements.themeIcon.className = theme === 'hoja' ? 'fas fa-leaf' : 'fas fa-moon';
+        activateThemeOption(theme);
+        loadRoutine();
+    }
 
-function obtenerEstado(nombre) {
-  return localStorage.getItem(`${modo}_${diaActual}_${nombre}`) === 'true';
-}
+    function activateThemeOption(theme) {
+        elements.themeOptions.forEach(option => {
+            option.classList.toggle('active', option.dataset.theme === theme);
+        });
+    }
 
-function generarChecklist(pasos) {
-  checklistEl.innerHTML = '';
-  pasos.forEach(paso => {
-    const checked = obtenerEstado(paso);
-    const div = document.createElement('div');
-    div.className = 'step';
-    div.innerHTML = `
-      <label>
-        <input type="checkbox" ${checked ? 'checked' : ''} onchange="guardarEstado('${paso}', this.checked); revisarCompletado()"> ${paso}
-      </label>
-      <span class="icono" onclick="mostrarInfo('${paso}')">ℹ️</span>
-    `;
-    checklistEl.appendChild(div);
-  });
-  revisarCompletado();
-}
+    function loadRoutine() {
+        
+        const day = new Date().getDay();
+        const isGlycolicDay = (day === 2 || day === 5);
+        elements.ritualSteps.innerHTML = '';
+        if (isGlycolicDay) {
+            const notice = document.createElement('div');
+            notice.className = 'daily-quote';
+            notice.style.color = 'var(--accent-color)';
+            notice.textContent = 'Hoy es día de exfoliación';
+            elements.ritualSteps.appendChild(notice);
+        }
+    
+        const steps = getRoutine(app.currentTheme);
 
-function mostrarInfo(paso) {
-  const info = explicaciones[paso];
-  modalContent.innerHTML = `<h3>${paso}</h3><p><strong>Producto:</strong> ${info.producto}</p><p>${info.detalle}</p><br><button onclick="cerrarModal()">Cerrar</button>`;
-  modal.style.display = 'flex';
-}
+        steps.forEach((key, index) => {
+            const step = app.allSteps[key];
+            const stepEl = document.createElement('div');
+            stepEl.className = 'step-item fade-in';
+            stepEl.style.animationDelay = `${index * 0.1}s`;
 
-function cerrarModal() {
-  modal.style.display = 'none';
-}
+            stepEl.innerHTML = `
+                <div class="step-icon"><i class="fas ${step.icon}"></i></div>
+                <div class="step-text"><h3>${step.title}</h3></div>
+                <div class="info-btn" data-step="${key}"><i class="fas fa-question"></i></div>
+                <label class="step-checkbox">
+                    <input type="checkbox" data-step="${key}">
+                    <span class="checkmark"></span>
+                </label>
+            `;
 
-function mostrarMotivacion() {
-  motivacionEl.textContent = frases[diaActual] || '';
-}
+            stepEl.querySelector('.info-btn').addEventListener('click', () => {
+                showExplanation(step);
+            });
 
-function reiniciarDia() {
-  rutinaPorDia[diaActual].forEach(paso => guardarEstado(paso, false));
-  generarChecklist(rutinaPorDia[diaActual]);
-}
+            stepEl.querySelector('input[type="checkbox"]').addEventListener('change', (e) => {
+                saveCheckboxState(key, e.target.checked);
+            });
 
-function mostrarCompleta() {
-  const todosPasos = [...new Set(Object.values(rutinaPorDia).flat())];
-  generarChecklist(todosPasos);
-}
+            elements.ritualSteps.appendChild(stepEl);
+        });
 
-function revisarCompletado() {
-  const pasos = rutinaPorDia[diaActual];
-  if (!pasos) return;
-  const completos = pasos.every(paso => obtenerEstado(paso));
-  mensajeCompletado.textContent = completos ? 'Ritual completado' : '';
-}
+        loadSavedCheckboxStates();
+    }
 
-function cambiarModo(nuevoModo) {
-  modo = nuevoModo;
-  document.getElementById('tab-hoja').classList.toggle('active', modo === 'hoja');
-  document.getElementById('tab-luna').classList.toggle('active', modo === 'luna');
-  generarChecklist(rutinaPorDia[diaActual]);
-  mostrarMotivacion();
-  mostrarGraficoSemanal();
-}
+    function showExplanation(step) {
+        elements.modalTitle.textContent = step.product;
+        elements.modalExplanation.textContent = step.explanation;
+        elements.explanationModal.style.display = 'flex';
+    }
 
-function mostrarGraficoSemanal() {
-  if (diaActual !== 'domingo') {
-    grafico.innerHTML = '';
-    return;
-  }
-  let html = '<h3>Resumen semanal</h3>';
-  Object.keys(rutinaPorDia).forEach(dia => {
-    const pasos = rutinaPorDia[dia];
-    const completos = pasos.every(p => localStorage.getItem(`${modo}_${dia}_${p}`) === 'true');
-    html += `<p>${dia.charAt(0).toUpperCase() + dia.slice(1)}: ${completos ? '✔️' : '❌'}</p>`;
-  });
-  grafico.innerHTML = html;
-}
+    function resetRoutine() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.checked = false;
+            localStorage.removeItem(`step_${cb.dataset.step}_${app.currentTheme}`);
+        });
+    }
 
-cambiarModo('hoja');
+    function saveCheckboxState(stepKey, isChecked) {
+        localStorage.setItem(`step_${stepKey}_${app.currentTheme}`, isChecked);
+    }
+
+    function loadSavedCheckboxStates() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            const saved = localStorage.getItem(`step_${cb.dataset.step}_${app.currentTheme}`);
+            if (saved === 'true') cb.checked = true;
+        });
+    }
+
+    elements.themeOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            applyTheme(option.dataset.theme);
+        });
+    });
+
+    elements.resetBtn.addEventListener('click', resetRoutine);
+
+    elements.closeModalBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            elements.explanationModal.style.display = 'none';
+            elements.allRoutinesModal.style.display = 'none';
+        });
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === elements.explanationModal) {
+            elements.explanationModal.style.display = 'none';
+        }
+        if (e.target === elements.allRoutinesModal) {
+            elements.allRoutinesModal.style.display = 'none';
+        }
+    });
+
+    applyTheme(app.currentTheme);
+});
