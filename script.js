@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 explanation: 'Aplicá con un pad de algodón por la noche, 2 veces por semana. No enjuagar. No mezclar con otros ácidos.'
             },
             'hyalu': {
-                icon: 'fa-droplet',
+                icon: 'fa-tint',
                 title: 'Hyalu B5',
                 product: 'La Roche-Posay Hyalu B5 Serum',
                 explanation: 'Aplicá 2-3 gotas sobre la piel limpia y húmeda, presionando con las palmas.'
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 explanation: 'Aplicá una gota en la yema del dedo anular y colocá con golpecitos suaves en el contorno.'
             },
             'hidratante': {
-                icon: 'fa-bottle-water',
+                icon: 'fa-pump-soap',
                 title: 'Hidratante',
                 product: 'CeraVe Loción Hidratante o Avène Cicalfate',
                 explanation: 'Aplicá una capa ligera en rostro y cuello.'
@@ -47,19 +47,15 @@ document.addEventListener('DOMContentLoaded', () => {
         themeOptions: document.querySelectorAll('.theme-option'),
         ritualSteps: document.querySelector('.ritual-steps'),
         resetBtn: document.getElementById('reset-btn'),
-        viewAllBtn: document.getElementById('view-all-btn'),
         explanationModal: document.getElementById('explanation-modal'),
         modalTitle: document.getElementById('modal-title'),
         modalExplanation: document.getElementById('modal-explanation'),
-        closeModalBtns: document.querySelectorAll('.close-modal'),
-        allRoutinesModal: document.getElementById('all-routines-modal'),
-        allRoutinesContent: document.querySelector('.all-routines-content')
+        closeModalBtns: document.querySelectorAll('.close-modal')
     };
 
     function getRoutine(theme) {
-        const day = new Date().getDay(); // 0=Domingo, 1=Lunes, ..., 5=Viernes, 6=Sábado
-        const isGlycolicDay = (day === 2 || day === 5); // Martes y Viernes
-
+        const day = new Date().getDay();
+        const isGlycolicDay = (day === 2 || day === 5);
         if (theme === 'hoja') {
             return isGlycolicDay
                 ? ['limpieza', 'glicolico', 'hyalu', 'contorno', 'hidratante', 'protector']
@@ -87,9 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadRoutine() {
-        
-        const day = new Date().getDay();
-        const isGlycolicDay = (day === 2 || day === 5);
+        const today = new Date().getDay();
+        const isGlycolicDay = (today === 2 || today === 5);
+
         elements.ritualSteps.innerHTML = '';
         if (isGlycolicDay) {
             const notice = document.createElement('div');
@@ -98,15 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
             notice.textContent = 'Hoy es día de exfoliación';
             elements.ritualSteps.appendChild(notice);
         }
-    
-        const steps = getRoutine(app.currentTheme);
 
+        const steps = getRoutine(app.currentTheme);
         steps.forEach((key, index) => {
             const step = app.allSteps[key];
             const stepEl = document.createElement('div');
-            stepEl.className = 'step-item fade-in';
-            stepEl.style.animationDelay = `${index * 0.1}s`;
-
+            stepEl.className = 'step-item';
             stepEl.innerHTML = `
                 <div class="step-icon"><i class="fas ${step.icon}"></i></div>
                 <div class="step-text"><h3>${step.title}</h3></div>
@@ -168,16 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.closeModalBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             elements.explanationModal.style.display = 'none';
-            elements.allRoutinesModal.style.display = 'none';
         });
     });
 
     window.addEventListener('click', (e) => {
         if (e.target === elements.explanationModal) {
             elements.explanationModal.style.display = 'none';
-        }
-        if (e.target === elements.allRoutinesModal) {
-            elements.allRoutinesModal.style.display = 'none';
         }
     });
 
