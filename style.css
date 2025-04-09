@@ -1,1 +1,62 @@
-body { background: #111; color: white; font-family: Montserrat, sans-serif; }
+
+:root {
+  --bg-color: #111111;
+  --card-bg: #1a1a1a;
+  --text-color: #ffffff;
+  --accent-color: #4CAF50;
+  --accent-soft: rgba(76, 175, 80, 0.2);
+  --btn-color: #2e7d32;
+  --border-color: #333333;
+  --icon-color: #4CAF50;
+  --secondary-text: #aaaaaa;
+}
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Montserrat', sans-serif;
+}
+.app-container {
+  max-width: 500px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.theme-option.active {
+  background-color: var(--accent-soft);
+  color: var(--accent-color);
+}
+.daily-quote {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+.btn {
+  background-color: var(--btn-color);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.8rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 0.5rem;
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+}
