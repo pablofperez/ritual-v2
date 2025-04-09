@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 explanation: 'Aplicá con un pad de algodón por la noche, 2 veces por semana. No enjuagar. No mezclar con otros ácidos.'
             },
             'hyalu': {
-                icon: 'fa-tint',
+                icon: 'fa-water',
                 title: 'Hyalu B5',
                 product: 'La Roche-Posay Hyalu B5 Serum',
                 explanation: 'Aplicá 2-3 gotas sobre la piel limpia y húmeda, presionando con las palmas.'
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 explanation: 'Aplicá una gota en la yema del dedo anular y colocá con golpecitos suaves en el contorno.'
             },
             'hidratante': {
-                icon: 'fa-pump-soap',
+                icon: 'fa-hand-holding-water',
                 title: 'Hidratante',
                 product: 'CeraVe Loción Hidratante o Avène Cicalfate',
                 explanation: 'Aplicá una capa ligera en rostro y cuello.'
