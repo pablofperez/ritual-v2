@@ -47,10 +47,24 @@
           </div>
         </div>
       </div>
+
+      <div class="weekly-summary" id="weekly-summary">
+        <h3>Resumen Semanal</h3>
+        <div class="weekly-calendar">
+          <div class="day" data-day="1">L</div>
+          <div class="day" data-day="2">M</div>
+          <div class="day" data-day="3">X</div>
+          <div class="day" data-day="4">J</div>
+          <div class="day" data-day="5">V</div>
+          <div class="day" data-day="6">S</div>
+          <div class="day" data-day="0">D</div>
+        </div>
+      </div>
     </div>
 
     <div class="controls">
       <button id="reset-btn" class="btn">Reiniciar</button>
+      <button id="view-all-btn" class="btn">Ver rutina completa</button>
     </div>
   </div>
 
@@ -59,6 +73,14 @@
       <span class="close-modal">&times;</span>
       <h3 id="modal-title">Título del producto</h3>
       <p id="modal-explanation">Explicación de uso</p>
+    </div>
+  </div>
+
+  <div class="modal" id="all-routines-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3>Rutina completa de la semana</h3>
+      <div class="all-routines-content"></div>
     </div>
   </div>
 
