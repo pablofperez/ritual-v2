@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ritual</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0b0c0d;
+      color: #e0e0e0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 5px;
+      font-size: 2.5em;
+      font-family: 'Georgia', serif;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 20px;
+      margin: 0 5px;
+      background-color: #1c1d1f;
+      color: #9ecbbf;
+      font-weight: bold;
+    }
+    .tab.active {
+      background-color: #2e3c38;
+    }
+    .motivacion {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 25px;
+      font-size: 1.1em;
+    }
+    .checklist {
+      max-width: 500px;
+      margin: auto;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      background: #1c1d1f;
+      padding: 12px;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      justify-content: space-between;
+    }
+    .step label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .step input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+    }
+    .buttons {
+      text-align: center;
+      margin: 25px 0;
+    }
+    button {
+      background: #2d2f31;
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #4d5053;
+    }
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .modal-content {
+      background: #1f2022;
+      padding: 25px;
+      border-radius: 16px;
+      max-width: 400px;
+      text-align: center;
+    }
+    .grafico {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .icono {
+      font-size: 1.2em;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+    .completado {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      color: #b7e4c7;
+    }
+    .subtexto {
+      text-align: center;
+      font-size: 0.9em;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+  <h1>Ritual de Mañana</h1>
+  <div class="tabs">
+    <div class="tab active" id="tab-hoja" onclick="cambiarModo('hoja')">🌿 hoja</div>
+    <div class="tab" id="tab-luna" onclick="cambiarModo('luna')">🌙 luna</div>
+  </div>
+  <div class="motivacion" id="motivacion">Cargando tu frase diaria...</div>
+  <div class="checklist" id="checklist"></div>
+  <div class="buttons">
+    <button onclick="reiniciarDia()">Reiniciar</button>
+    <button onclick="mostrarCompleta()">Ver rutina completa</button>
+  </div>
+  <div class="completado" id="mensajeCompletado"></div>
+  <div class="subtexto">Tu piel te lo agradece.</div>
+  <div class="grafico" id="grafico"></div>
+  <div class="modal" id="modal">
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Registro del service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => console.log('Service Worker registrado:', reg.scope))
+          .catch(err => console.error('Error al registrar el Service Worker:', err));
+      });
+    }
+  </script>
+</body>
+</html>
